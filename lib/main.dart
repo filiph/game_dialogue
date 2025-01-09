@@ -119,6 +119,9 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
     _initYarn();
   }
 
+  /// This is part of the [DialogueView] mixin contract.
+  /// Only the three methods that are absolutely necessary for this simple demo
+  /// are implemented.
   @override
   Future<int?> onChoiceStart(DialogueChoice choice) {
     final completer = Completer<int>();
@@ -151,6 +154,9 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
     return completer.future;
   }
 
+  /// This is part of the [DialogueView] mixin contract.
+  /// Only the three methods that are absolutely necessary for this simple demo
+  /// are implemented.
   @override
   FutureOr<void> onDialogueFinish() {
     setState(() {
@@ -158,6 +164,9 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
     });
   }
 
+  /// This is part of the [DialogueView] mixin contract.
+  /// Only the three methods that are absolutely necessary for this simple demo
+  /// are implemented.
   @override
   Future<bool> onLineStart(DialogueLine line) {
     assert(_finishedReadingCompleter == null);
@@ -172,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
   }
 
   void _achievementCommand(String achievement) {
-    _showSnackBar('achieved $achievement');
+    _showSnackBar('Achievement unlocked: $achievement.');
   }
 
   void _finishReadingLine() {
@@ -196,11 +205,12 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
   }
 
   void _giveCommand(String itemName) {
-    _showSnackBar('$itemName given');
+    _showSnackBar('The player was given "$itemName".');
   }
 
   void _initYarn() async {
     final script = await _getScript();
+    if (!mounted) return;
 
     _project = YarnProject()
       ..functions.addFunction0('time_of_day', _getTimeOfDay)
@@ -241,6 +251,6 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
       ?.showSnackBar(SnackBar(content: Text(content)));
 
   void _takeCommand(String itemName) {
-    _showSnackBar('$itemName taken');
+    _showSnackBar('Item "$itemName" was taken from the player.');
   }
 }
