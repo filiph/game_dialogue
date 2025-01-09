@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
       return ColoredBox(
         color: Colors.black,
         child: Center(
-          child: Text('Loading...'),
+          child: Text(
+            'Loading...',
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
         ),
       );
     }
@@ -61,14 +65,10 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
         actions: [
-          if (_dialogueFinished)
-            FilledButton(
-              onPressed: () => setState(() {
-                _dialogueFinished = false;
-                _initYarn();
-              }),
-              child: Text('Restart'),
-            ),
+          FilledButton(
+            onPressed: _showScript,
+            child: Text('Show script'),
+          ),
         ],
       ),
       body: Padding(
@@ -94,13 +94,22 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
           ),
         ),
       ),
-      floatingActionButton: _finishedReadingCompleter != null
-          ? FloatingActionButton(
-              onPressed: _finishReadingLine,
-              tooltip: 'Next',
-              child: const Icon(Icons.arrow_forward),
+      floatingActionButton: _dialogueFinished
+          ? FilledButton.icon(
+              onPressed: () => setState(() {
+                _dialogueFinished = false;
+                _initYarn();
+              }),
+              icon: Icon(Icons.restart_alt),
+              label: Text('Restart'),
             )
-          : null,
+          : (_finishedReadingCompleter != null
+              ? FilledButton.icon(
+                  onPressed: _finishReadingLine,
+                  icon: Icon(Icons.arrow_forward),
+                  label: Text('Next'),
+                )
+              : null),
     );
   }
 
@@ -174,6 +183,9 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
     });
   }
 
+  Future<String> _getScript() =>
+      DefaultAssetBundle.of(context).loadString('assets/project.yarn');
+
   String _getTimeOfDay() {
     return switch (DateTime.now().hour) {
       < 10 => 'morning',
@@ -188,8 +200,7 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
   }
 
   void _initYarn() async {
-    final script =
-        await DefaultAssetBundle.of(context).loadString('assets/project.yarn');
+    final script = await _getScript();
 
     _project = YarnProject()
       ..functions.addFunction0('time_of_day', _getTimeOfDay)
@@ -203,6 +214,27 @@ class _MyHomePageState extends State<MyHomePage> with DialogueView {
       dialogueViews: [this],
     );
     _dialogueRunner!.startDialogue('Slughorn_encounter');
+  }
+
+  Future<void> _showScript() async {
+    final script = await _getScript();
+    if (!mounted) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => SimpleDialog(
+        title: Text('The Script'),
+        contentPadding: const EdgeInsets.all(24),
+        children: [
+          Text(script),
+          FilledButton(
+              onPressed: () =>
+                  launchUrlString('https://github.com/filiph/game_dialogue'),
+              child: Text('See code')),
+          CloseButton(),
+        ],
+      ),
+    );
   }
 
   void _showSnackBar(String content) => ScaffoldMessenger.maybeOf(context)
