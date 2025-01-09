@@ -1,10 +1,11 @@
-// Professor at Hogwarts School.
+/// Professor at Hogwarts School.
 <<character "Horace Slughorn" Slughorn>>
 
-// A promising student of wizardry.
+/// A promising student of wizardry.
 <<character "Tom Riddle" Tom>>
 
-// Try changing this to false.
+/// Whether or not Tom knows about horcruxes.
+/// Try changing this to false to get a different experience.
 <<declare $knows_about_horcruxes = true>>
 
 title: Slughorn_encounter
