@@ -65746,7 +65746,7 @@ a7V(a){var s=new A.ac($.a6,t.tr)
 this.an(new A.a7q(this,a))
 this.w=new A.bb(s,t.VY)
 return s},
-U_(a){this.yN("achieved "+a)},
+U_(a){this.yN("Achievement unlocked: "+a+".")},
 Wx(){this.w.eV(!0)
 this.an(new A.a7h(this))},
 X8(){var s,r=A.ahN(new A.i5(Date.now(),0,!1))
@@ -65755,34 +65755,35 @@ break $label0$0}if(r>12&&r<17){s="afternoon"
 break $label0$0}if(r>=17){s="evening"
 break $label0$0}s="day"
 break $label0$0}return s},
-Xb(a){this.yN(a+" given")},
-ot(){var s=0,r=A.R(t.H),q=this,p,o,n,m,l,k,j
+Xb(a){this.yN('The player was given "'+a+'".')},
+ot(){var s=0,r=A.R(t.H),q,p=this,o,n,m,l,k,j,i
 var $async$ot=A.S(function(a,b){if(a===1)return A.O(b,r)
-while(true)switch(s){case 0:j=q.c
-j.toString
-s=2
-return A.T(A.abQ(j).Ne("assets/project.yarn"),$async$ot)
-case 2:p=b
-j=t.N
-o=A.w(j,t._A)
-n=new A.T4(A.w(j,t.gQ))
-m=new A.Qa(A.w(j,t.Ej))
-l=new A.pF(o,new A.GS(A.w(j,t.z)),n,m,new A.PJ(A.w(j,t.zR)),B.l9)
-k=$.anS().k(0,"en")
-if(k==null)A.af(A.cG('Unknown locale "en"'))
-if(o.a!==0)A.af(A.cG("The locale cannot be changed after nodes have been added"))
-l.x=k
-n.K4("time_of_day",q.gX7(),j)
-n.K4("luck",new A.a7i(),t.S)
-m.zm("give",q.gXa(),j)
-m.zm("take",q.ga1h(),j)
-m.zm("achievement",q.gTZ(),j)
-new A.Kq(l,p,A.aj1(p,-2).NK()).a8c()
-q.d=l
-j=new A.QK(A.b([q],t.Qa),l)
-q.e=j
-j.lS("Slughorn_encounter")
-return A.P(null,r)}})
+while(true)switch(s){case 0:i=p.c
+i.toString
+s=3
+return A.T(A.abQ(i).Ne("assets/project.yarn"),$async$ot)
+case 3:o=b
+if(p.c==null){s=1
+break}i=t.N
+n=A.w(i,t._A)
+m=new A.T4(A.w(i,t.gQ))
+l=new A.Qa(A.w(i,t.Ej))
+k=new A.pF(n,new A.GS(A.w(i,t.z)),m,l,new A.PJ(A.w(i,t.zR)),B.l9)
+j=$.anS().k(0,"en")
+if(j==null)A.af(A.cG('Unknown locale "en"'))
+if(n.a!==0)A.af(A.cG("The locale cannot be changed after nodes have been added"))
+k.x=j
+m.K4("time_of_day",p.gX7(),i)
+m.K4("luck",new A.a7i(),t.S)
+l.zm("give",p.gXa(),i)
+l.zm("take",p.ga1h(),i)
+l.zm("achievement",p.gTZ(),i)
+new A.Kq(k,o,A.aj1(o,-2).NK()).a8c()
+p.d=k
+i=new A.QK(A.b([p],t.Qa),k)
+p.e=i
+i.lS("Slughorn_encounter")
+case 1:return A.P(q,r)}})
 return A.Q($async$ot,r)},
 t3(){var s=0,r=A.R(t.H),q,p=this,o,n,m,l,k
 var $async$t3=A.S(function(a,b){if(a===1)return A.O(b,r)
@@ -65807,7 +65808,7 @@ yN(a){var s=null,r=this.c
 r.toString
 r=A.ai3(r)
 return r==null?s:r.Q5(A.ail(s,s,s,s,s,B.al,s,A.fX(a,s,s),s,B.Bt,s,s,s,s,s,s,s,s,s))},
-a1i(a){this.yN(a+" taken")}}
+a1i(a){this.yN('Item "'+a+'" was taken from the player.')}}
 A.a7m.prototype={
 $0(){var s=this.a
 return s.an(new A.a7l(s))},
